@@ -1,8 +1,14 @@
 MFKnob {
-  var <id, <val = 0, <>func, rout;
+  var <id, <twister, <page, <color, <val = 0, <>func, rout;
+  var <>buttOnFunc, <>buttOffFunc;
 
-  *new { |id|
-    ^super.newCopyArgs(id);
+  *new { |id, twister, page = 0|
+    ^super.newCopyArgs(id, twister, page);
+  }
+
+  color_ { |value|
+    color = value;
+    this.changed(\color, value);
   }
 
   val_ { |value|
@@ -11,11 +17,13 @@ MFKnob {
   }
 
   prVal_ { |value|
-    val = value;
-    if (func.value(value) != false) {
-      this.changed(\destinations, value);
+    if (val != value) {
+      val = value;
+      if (func.value(value) != false) {
+        this.changed(\destinations, value);
+      };
+      this.changed(\val, value);
     };
-    this.changed(\val, value);
   }
 
   fadeTo { |value = 0, dur = 1, curve = \sin, hz = 30, clock|
@@ -35,5 +43,13 @@ MFKnob {
         };
       }.fork(clock);
     }
+  }
+
+  buttOn {
+    buttOnFunc.();
+  }
+
+  buttOff {
+    buttOffFunc.();
   }
 }
