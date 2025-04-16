@@ -22,8 +22,8 @@ MFKnob {
       if (func.value(value) != false) {
         this.changed(\destinations, value);
       };
-      this.changed(\val, value);
     };
+    this.changed(\val, value);
   }
 
   fadeTo { |value = 0, dur = 1, curve = \sin, hz = 30, clock|
