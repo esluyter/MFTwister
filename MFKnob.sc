@@ -26,6 +26,12 @@ MFKnob {
     this.changed(\val, value);
   }
 
+  // just to set without updating destinations or calling func
+  setVal { |value|
+    val = value;
+    this.changed(\val, value);
+  }
+
   fadeTo { |value = 0, dur = 1, curve = \sin, hz = 30, clock|
     clock = clock ?? TempoClock;
     rout.stop;
@@ -35,7 +41,7 @@ MFKnob {
     } {
       var waittime = hz.reciprocal;
       var env = Env([val, value], [dur], curve);
-      var iterations = dur * hz.floor;
+      var iterations = (dur * hz).floor;
       rout = {
         iterations.do { |i|
           this.prVal_(env.at((i + 1) * waittime).floor);
