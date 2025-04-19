@@ -80,4 +80,6 @@ MFTwister {
     };
     outDevice.control(mfChannels[\butt], num, color)
   }
+
+  uid { ^inDevice.uid }
 }
