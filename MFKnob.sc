@@ -17,11 +17,9 @@ MFKnob {
   }
 
   prVal_ { |value|
-    if (val != value) {
-      val = value;
-      if (func.value(value) != false) {
-        this.changed(\destinations, value);
-      };
+    val = value;
+    if (func.value(value) != false) {
+      this.changed(\destinations, value);
     };
     this.changed(\val, value);
   }
